@@ -1,0 +1,21 @@
+import subprocess
+import time
+import itertools
+
+heart = itertools.cycle(["❤️", "💗", "💓", "💗"])
+
+while True:
+    print(f"\r{next(heart)}  Pinging 127.0.0.1 ...", end="", flush=True)
+
+    result = subprocess.run(
+        ["ping", "-c", "1", "127.0.0.1"],
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL
+    )
+
+    if result.returncode == 0:
+        print(f"\r{next(heart)}  127.0.0.1  ✓ Online   ", end="", flush=True)
+    else:
+        print(f"\r💔  127.0.0.1  ✗ Offline  ", end="", flush=True)
+
+    time.sleep(0.5)
